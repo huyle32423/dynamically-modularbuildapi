@@ -1,1 +1,4 @@
-const randomNumber = Math.floor(Math.random() * 10) + 1;
+function findKthLargest(nums, k) {
+  nums.sort((a, b) => b - a);
+  return nums[k - 1];
+}
