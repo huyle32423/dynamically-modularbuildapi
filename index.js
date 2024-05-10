@@ -1,24 +1,15 @@
-function isValidSudoku(board) {
-  const rows = Array(9)
-    .fill()
-    .map(() => new Set());
-  const cols = Array(9)
-    .fill()
-    .map(() => new Set());
-  const boxes = Array(9)
-    .fill()
-    .map(() => new Set());
-  for (let i = 0; i < 9; i++) {
-    for (let j = 0; j < 9; j++) {
-      const num = board[i][j];
-      if (num === ".") continue;
-      const boxIndex = Math.floor(i / 3) * 3 + Math.floor(j / 3);
-      if (rows[i].has(num) || cols[j].has(num) || boxes[boxIndex].has(num))
-        return false;
-      rows[i].add(num);
-      cols[j].add(num);
-      boxes[boxIndex].add(num);
+function longestValidParentheses(s) {
+  if (s.length === 0) return 0;
+  let max = 0;
+  const dp = new Array(s.length).fill(0);
+  for (let i = 1; i < s.length; i++) {
+    if (s[i] === ")") {
+      if (s[i - 1] === "(") dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
+      else if (i - dp[i - 1] > 0 && s[i - dp[i - 1] - 1] === "(")
+        dp[i] =
+          dp[i - 1] + (i - dp[i - 1] >= 2 ? dp[i - dp[i - 1] - 2] : 0) + 2;
+      max = Math.max(max, dp[i]);
     }
   }
-  return true;
+  return max;
 }
