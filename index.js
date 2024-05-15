@@ -1,9 +1,10 @@
-function isSubsequence(s, t) {
-  let i = 0;
-  let j = 0;
-  while (i < s.length && j < t.length) {
-    if (s[i] === t[j]) i++;
-    j++;
+function rob(nums) {
+  let prevMax = 0;
+  let currMax = 0;
+  for (const num of nums) {
+    const temp = currMax;
+    currMax = Math.max(prevMax + num, currMax);
+    prevMax = temp;
   }
-  return i === s.length;
+  return currMax;
 }
